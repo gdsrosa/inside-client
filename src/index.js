@@ -1,25 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import { render } from 'react-dom';
 import { LocaleProvider } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
-import Home from 'components/pages/Home';
 
-import rootReducer from './reducers';
+import Root from './root';
 import registerServiceWorker from './registerServiceWorker';
+
 import './index.css';
 
-const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-);
+const ELEMENT_TO_BOOTSTRAP = 'root';
+const BootstrapedElement = document.getElementById(ELEMENT_TO_BOOTSTRAP);
 
-ReactDOM.render(
-  <Provider store={store}>
+const renderApp = RootComponent => {
+  render(
     <LocaleProvider locale={enUS}>
-      <Home />
-    </LocaleProvider>
-  </Provider>,
-  document.getElementById('root'));
+      <RootComponent />
+    </LocaleProvider>,
+    BootstrapedElement
+  );
+};
+
+renderApp(Root);
+
 registerServiceWorker();
